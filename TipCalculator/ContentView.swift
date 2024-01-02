@@ -19,17 +19,20 @@ struct ContentView: View {
             
             VStack {
                 
-                TextField("Enter Total", text: $total).textFieldStyle(.roundedBorder)
+                TextField("Enter Total", text: $total)
+                    .textFieldStyle(.roundedBorder)
+                    .accessibilityIdentifier("totalTextField")
                 
                 Picker(selection: $tipPercentage) {
                     Text("10%").tag(0.1)
                     Text("20%").tag(0.2)
                     Text("30%").tag(0.3)
                 } label: {
-                    EmptyView()
-                }.pickerStyle(.segmented)
+                    EmptyView() }
+                .pickerStyle(.segmented)
+                .accessibilityIdentifier("tipPercentageSegmentControl")
                 
-                Button("Calculate Tip") {
+                Button{
                     
                     message = ""
                     tip = ""
@@ -54,13 +57,19 @@ struct ContentView: View {
                         message = error.localizedDescription
                     }
                     
+                    
+                    
+                } label: {
+                    Text("Calculate Tip").accessibilityIdentifier("calculateTipButton")
+                    
                 }.padding(.top, 20)
+                    
                 
-                Text(message).padding(.top, 50)
+                Text(message).padding(.top, 50).accessibilityIdentifier("messageText")
                 
                 Spacer()
                 
-                Text(tip ?? "").font(.system(size: 54))
+                Text(tip ?? "").font(.system(size: 54)).accessibilityIdentifier("tipText")
                 
                 Spacer().navigationTitle("Tip Calculator")
                 
